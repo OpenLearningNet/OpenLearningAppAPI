@@ -127,18 +127,13 @@ var OpenLearning = {
         return result;
       }
     },
-    
+
     getData: function( profileName, callback ) {
       if (!profileName) {
         profileName = null;
       }
 
-      var result = rpcResult( jsonRPC( 'olv2.page.getData', [profileName], callback ) );
-      if (result.data) {
-        return result.data;
-      } else {
-        return result;
-      }
+      return rpcResult( jsonRPC( 'olv2.page.getData', [profileName], callback ) );
     },
     
     setData: function( appData, profileName, callback ) {

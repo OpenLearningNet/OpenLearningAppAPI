@@ -82,12 +82,16 @@ returns data stored by apps on this page
 
 Code Example:
 
-    var allData = OpenLearning.page.getData( null );
-    var dataProtectedByUser = OpenLearning.page.getData( request.user );
+    var allData = OpenLearning.page.getData( null ).data;
+    var dataProtectedByUser = OpenLearning.page.getData( request.user ).data;
+
+properties .data and .url (for the page's OpenLearning url) are available
 
 ### setData( profileName, dataObject )
 
-returns whether data is stored on this page successfully
+returns whether data is stored on this page successfully.
+
+.url property is also available
 
 e.g.
 
