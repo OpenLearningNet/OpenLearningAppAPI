@@ -83,11 +83,11 @@ var OpenLearning = {
     setAutomarked: function( isAutomarked, callback ) {
       return OpenLearning.page.setData( { 'isAutomarked': isAutomarked }, callback );
     },
-    
+
     getSubmission: function( profileName, callback ) {
       return rpcResult( jsonRPC( 'olv2.activities.getSubmission', [profileName], callback ) );
     },
-    
+
     saveSubmission: function( profileName, submissionData, pageType, callback ) {
       if ( (typeof pageType) == 'function' ) {
         callback = pageType;
@@ -119,6 +119,15 @@ var OpenLearning = {
   },
   
   page: {
+    readSubpage: function( relativePath, callback ) {
+      var result = rpcResult( jsonRPC( 'olv2.page.readSubpage', [relativePath], callback ) );
+      if (result.page) {
+        return result.page;
+      } else {
+        return result;
+      }
+    },
+    
     getData: function( profileName, callback ) {
       if (!profileName) {
         profileName = null;

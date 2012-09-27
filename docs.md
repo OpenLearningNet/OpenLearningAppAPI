@@ -100,6 +100,15 @@ Code Example:
     OpenLearning.page.setData( null, { myData: 'hello' } );
     OpenLearning.page.setData( request.user, { myData: 'only store this if user is allowed' } );
 
+### readSubpage( relativePath )
+
+returns page contents and metadata of a sub-page
+
+Code Example:
+    var pageData = OpenLearning.page.readSubpage( '/MySubpage' );
+
+see getSubmission/saveSubmission for the data format
+
 <hr>
 
 OpenLearning Activities
