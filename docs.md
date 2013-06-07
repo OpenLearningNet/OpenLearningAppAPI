@@ -87,7 +87,7 @@ Code Example:
 
 properties .data and .url (for the page's OpenLearning url) are available
 
-### setData( profileName, dataObject )
+### setData( dataObject, profileName )
 
 returns whether data is stored on this page successfully.
 
@@ -101,8 +101,22 @@ e.g.
 
 Code Example:
 
-    OpenLearning.page.setData( null, { myData: 'hello' } );
-    OpenLearning.page.setData( request.user, { myData: 'only store this if user is allowed' } );
+    OpenLearning.page.setData( { myData: 'hello' } );
+    OpenLearning.page.setData( { myData: 'only store this if user is allowed' }, request.user );
+
+
+### getUserData( profileName, key )
+
+returns a JSON Object stored at the given key (string), in relation to the App's page.
+
+Code Example:
+    var userData = getUserData( 'tom.riddle', 'horcrux' );
+
+### setUserData( profileName, key, value )
+
+returns whether user data is stored at the given key, with this page successfully
+
+<i>value</i> must be a JSON Object (i.e. { 'hello': 'world' })
 
 ### readSubpage( relativePath )
 
@@ -164,10 +178,28 @@ Returns the latest mark for a user.
 
 <i>templateMarkup</i> is optional.
 
-Set the default page type for new submissions. <i>pageType<i> is one of:
+Set the default page type for new submissions. <i>pageType</i> is one of:
    'content'
    'file'
    'multi-file'
+<br>
+
+### createSubmissionExhibit( profileName, pageType, title, data )
+
+Create a page which is exhibited instead of the submission
+e.g.
+    createSubmissionExhibit( 'harry.potter', 'file', 'Foo', {
+      file: {
+        filename: 'foo.txt',
+        data: 'hello world'
+      }
+    } )
+
+Supported pageTypes:
+    'content': text/html content
+    'file'
+    'multi-file'
+
 
 <br>
 ### setTotalMarks( totalMarks )
@@ -223,14 +255,16 @@ Saves a user's submission to this activity. The format of the submission object 
 
     'multi-file' page type:
 
-    [
-      {
-        'filename': 'file1.txt',
-        'data': 'hello world'
-      },
+    {
+      'files': [
+        {
+          'filename': 'file1.txt',
+          'data': 'hello world'
+        },
 
-      {
-        'filename': 'file2.txt',
-        'data': 'dlrow olleh'
-      }
-    ]
+        {
+          'filename': 'file2.txt',
+          'data': 'dlrow olleh'
+        }
+      ]
+    }
